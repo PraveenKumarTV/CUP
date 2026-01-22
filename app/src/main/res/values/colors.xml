@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light background -->
+    <color name="light_background">#F2FCFC</color>
+    <!-- Secondary background -->
+    <color name="secondary_background">#BDF1F6</color>
+    <!-- Accent -->
+    <color name="accent">#8FBAF3</color>
+    <!-- Primary / Dark -->
+    <color name="primary_dark">#0245A3</color>
+    <!-- White for text/icons on dark header -->
+    <color name="light_on_primary">#FFFFFF</color>
+</resources>

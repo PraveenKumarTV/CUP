@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CUP2</string>
+    <string name="aptiname">Aptitude</string>
+    <string name="technical">Technical</string>
+    <string name="hr">HR</string>
+</resources>
