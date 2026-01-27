@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CUP2</string>
-    <string name="aptiname">Aptitude</string>
-    <string name="technical">Technical</string>
-    <string name="hr">HR</string>
+    <string name="aptiname">Mock Interview</string>
+    <string name="technical">Interview Experience</string>
+    <string name="hr">Frequently asked questions</string>
 </resources>

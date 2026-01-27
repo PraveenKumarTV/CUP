@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- App logo (left) -->
         <ImageView
             android:id="@+id/ivLogo"
             android:layout_width="40dp"
@@ -30,12 +30,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/light_on_primary" />
 
-        <!-- App name (center-left) -->
         <TextView
             android:id="@+id/tvAppName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Placement Prep"
+            android:text="CrackUrPath"
             android:textColor="@color/light_on_primary"
             android:textStyle="bold"
             android:textSize="18sp"
@@ -46,7 +45,6 @@
             android:gravity="center_vertical"
             android:paddingStart="12dp" />
 
-        <!-- Hamburger (right) using glyph to avoid added drawables -->
         <TextView
             android:id="@+id/tvHamburger"
             android:layout_width="40dp"
@@ -85,81 +83,89 @@
             android:padding="12dp" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Module cards container -->
-    <!-- First row: aptitude and technical -->
+    <!-- First row: aptitude and technical (horizontal chain, equal size squares) -->
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardAptitude"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="8dp"
+        android:layout_width="149dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@color/secondary_background"
-        app:layout_constraintTop_toBottomOf="@id/bannerCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cardTechnical"
-        app:layout_constraintWidth_percent="0.48"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintWidth_percent="0.48">
 
         <TextView
             android:id="@+id/tvAptitude"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Aptitude"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardTechnical"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="@color/secondary_background"
-        app:layout_constraintTop_toTopOf="@id/cardAptitude"
-        app:layout_constraintStart_toEndOf="@id/cardAptitude"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.48"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tvTechnical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Technical"
+            android:text="Mock Interview"
             android:textSize="18sp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Second row: HR centered below -->
+
+    <!-- Bottom navigation -->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTechnical"
+        android:layout_width="144dp"
+        android:layout_height="146dp"
+        app:cardBackgroundColor="@color/secondary_background"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507"
+        app:layout_constraintWidth_percent="0.48">
+
+        <TextView
+            android:id="@+id/tvTechnical"
+            android:layout_width="147dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Interview Experience"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardHr"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="8dp"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
         app:cardBackgroundColor="@color/secondary_background"
-        app:layout_constraintTop_toBottomOf="@id/cardAptitude"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.5"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginTop="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.829"
+        app:layout_constraintWidth_percent="0.5">
 
         <TextView
             android:id="@+id/tvHr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="HR Interview"
+            android:text="Frequently asked questions"
             android:textSize="18sp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Bottom navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
