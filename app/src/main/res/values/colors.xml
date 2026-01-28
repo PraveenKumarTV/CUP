@@ -10,4 +10,5 @@
     <color name="primary_dark">#0245A3</color>
     <!-- White for text/icons on dark header -->
     <color name="light_on_primary">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
 </resources>

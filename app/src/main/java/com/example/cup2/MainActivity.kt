@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         // Module card click listeners
         findViewById<View>(R.id.cardAptitude).setOnClickListener {
-            startActivity(Intent(this, AptitudeActivity::class.java))
+            startActivity(Intent(this, MockInterviewActivity::class.java))
         }
         findViewById<View>(R.id.cardTechnical).setOnClickListener {
             startActivity(Intent(this, TechnicalActivity::class.java))
