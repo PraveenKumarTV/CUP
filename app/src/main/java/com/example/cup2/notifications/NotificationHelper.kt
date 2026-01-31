@@ -1,38 +1,37 @@
 package com.example.cup2.notifications
-import android.content.Context
+
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.os.Build
-import androidx.annotation.RequiresApi
-import android.content.Intent
 import android.app.PendingIntent
-import com.example.cup2.ui.general.GeneralQuestionsActivity
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
-import com.example.cup2.R
-import android.app.Notification
 import androidx.core.app.NotificationManagerCompat
-
-
+import com.example.cup2.R
+import com.example.cup2.ui.general.GeneralQuestionsActivity
+import com.example.cup2.utils.SheetPrefs
 
 
 object NotificationHelper {
 
-    const val CHANNEL_ID = "questions_channel"
+    private const val CHANNEL_ID = "questions_channel"
 
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Questions Notifications",
+                "Questions",
                 NotificationManager.IMPORTANCE_HIGH
             )
-
-            val manager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = context.getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)
         }
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun showQuestionNotification(context: Context, title: String, message: String) {
 
         val intent = Intent(context, GeneralQuestionsActivity::class.java).apply {
@@ -43,7 +42,8 @@ object NotificationHelper {
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
         )
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -52,13 +52,8 @@ object NotificationHelper {
             .setContentText(message)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-        val manager = NotificationManagerCompat.from(context)
-
-        // ✅ THIS removes the permission warning
-        if (manager.areNotificationsEnabled()) {
-            manager.notify(1001, builder.build())
-        }
+        NotificationManagerCompat.from(context).notify(1001, builder.build())
     }
+
 }

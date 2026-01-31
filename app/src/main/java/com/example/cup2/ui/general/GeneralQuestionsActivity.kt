@@ -14,6 +14,7 @@ import com.example.cup2.ui.general.QuestionsAdapter
 import com.example.cup2.model.SheetsResponse
 import com.example.cup2.model.Question
 import com.example.cup2.notifications.NotificationHelper
+import com.example.cup2.utils.SheetPrefs
 import java.lang.Exception
 
 
@@ -48,6 +49,7 @@ class GeneralQuestionsActivity : AppCompatActivity() {
                 )
                 val questions = response.values.map { it[0] }
                 recycler.adapter = QuestionsAdapter(questions)
+                SheetPrefs.saveLastCount(this@GeneralQuestionsActivity, questions.size)
                 NotificationHelper.showQuestionNotification(this@GeneralQuestionsActivity,
                     title="New Question Available",
                     message="click here to view the latest question"
