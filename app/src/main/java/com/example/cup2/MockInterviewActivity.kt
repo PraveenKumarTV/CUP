@@ -3,6 +3,7 @@ package com.example.cup2
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cup2.ui.general.GeneralQuestionsActivity
 import com.google.android.material.card.MaterialCardView
 
 class MockInterviewActivity : AppCompatActivity() {
