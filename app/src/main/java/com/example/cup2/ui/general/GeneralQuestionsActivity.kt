@@ -13,6 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cup2.ui.general.QuestionsAdapter
 import com.example.cup2.model.SheetsResponse
 import com.example.cup2.model.Question
+import com.example.cup2.notifications.NotificationHelper
+import java.lang.Exception
+
 
 
 
@@ -27,6 +30,9 @@ class GeneralQuestionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general_questions)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationHelper.createNotificationChannel(this)
+        }
         val recycler=findViewById<RecyclerView>(R.id.questionsRecycler)
         recycler.layoutManager=LinearLayoutManager(this)
         val retrofit=Retrofit.Builder()
@@ -42,6 +48,10 @@ class GeneralQuestionsActivity : AppCompatActivity() {
                 )
                 val questions = response.values.map { it[0] }
                 recycler.adapter = QuestionsAdapter(questions)
+                NotificationHelper.showQuestionNotification(this@GeneralQuestionsActivity,
+                    title="New Question Available",
+                    message="click here to view the latest question"
+                )
             }catch(e:Exception){
                 e.printStackTrace()
             }
