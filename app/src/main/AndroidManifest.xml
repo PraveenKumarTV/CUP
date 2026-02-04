@@ -27,6 +27,7 @@
         <activity android:name=".HrActivity" />
         <activity android:name=".MockInterviewActivity" />
         <activity android:name=".ui.general.GeneralQuestionsActivity" />
+        <activity android:name=".ui.QuestionDetailActivity" />
     </application>
 
 </manifest>
