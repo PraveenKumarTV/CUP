@@ -1,11 +1,14 @@
 package com.example.cup2
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.View
-import android.widget.Toast
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         ).build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork("SheetCheckWork",
             ExistingPeriodicWorkPolicy.KEEP,workRequest)
+
+        showWelcomeDialog()
 
         // Module card click listeners
         findViewById<View>(R.id.cardAptitude).setOnClickListener {
@@ -63,5 +68,24 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun showWelcomeDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_welcome)
+        val quoteTextView = dialog.findViewById<TextView>(R.id.quoteTextView)
+        val quotes = resources.getStringArray(R.array.welcome_quotes)
+        quoteTextView.text = quotes.random()
+        val okButton = dialog.findViewById<Button>(R.id.okButton)
+        okButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels*0.9).toInt(),
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 }
