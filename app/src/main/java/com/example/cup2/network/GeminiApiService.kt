@@ -7,11 +7,19 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 object GeminiApiService {
 
     private const val TAG = "Gemini_DEBUG"
-    private val client = OkHttpClient()
+
+    // ✅ IMPORTANT: Increase timeouts (fixes timeout crashes)
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .build()
 
     fun evaluateAnswer(
         apiKey: String,
@@ -29,7 +37,9 @@ object GeminiApiService {
             Evaluate the answer. Give feedback and correctness.
         """.trimIndent()
 
-        // ✅ STRICT JSON (NO mapOf, NO listOf)
+        // -------------------------------
+        // ✅ STRICT JSON (Gemini compliant)
+        // -------------------------------
         val part = JSONObject()
         part.put("text", prompt)
 
@@ -58,22 +68,22 @@ object GeminiApiService {
 
             override fun onFailure(call: Call, e: IOException) {
                 Log.e(TAG, "❌ Network error", e)
-                callback("Network error: ${e.localizedMessage}")
+                callback("Network timeout. Please try again.")
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
+                val rawResponse = response.body?.string()
 
                 Log.d(TAG, "HTTP CODE = ${response.code}")
-                Log.d(TAG, "RAW RESPONSE = $responseBody")
+                Log.d(TAG, "RAW RESPONSE = $rawResponse")
 
-                if (!response.isSuccessful || responseBody == null) {
-                    callback("API Error (${response.code}):\n$responseBody")
+                if (!response.isSuccessful || rawResponse == null) {
+                    callback("AI Error (${response.code}). Try again later.")
                     return
                 }
 
                 try {
-                    val json = JSONObject(responseBody)
+                    val json = JSONObject(rawResponse)
                     val text =
                         json.getJSONArray("candidates")
                             .getJSONObject(0)
@@ -86,7 +96,7 @@ object GeminiApiService {
 
                 } catch (e: Exception) {
                     Log.e(TAG, "❌ Parsing error", e)
-                    callback("Parsing error:\n${e.localizedMessage}")
+                    callback("Response parsing failed.")
                 }
             }
         })
