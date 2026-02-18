@@ -18,19 +18,20 @@ class AptitudeActivity : AppCompatActivity() {
         // Bottom nav behavior
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationApt)
         // mark current item selected
-        bottomNav.selectedItemId = R.id.nav_aptitude
+        bottomNav.selectedItemId = R.id.nav_mock_interview
+
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_aptitude -> {
+                R.id.nav_mock_interview -> {
                     // already here
                     true
                 }
-                R.id.nav_technical -> {
+                R.id.nav_faq -> {
                     startActivity(Intent(this, TechnicalActivity::class.java))
                     true
                 }
-                R.id.nav_hr -> {
+                R.id.nav_interview_xp -> {
                     startActivity(Intent(this, HrActivity::class.java))
                     true
                 }

@@ -18,6 +18,7 @@ import androidx.work.WorkManager
 import com.example.cup2.notifications.NotificationHelper
 import java.util.concurrent.TimeUnit
 import com.example.cup2.worker.SheetCheckoutWorker
+import com.example.cup2.ui.general.GeneralQuestionsActivity
 
 
 /**
@@ -59,18 +60,26 @@ class MainActivity : AppCompatActivity() {
 
         // Bottom navigation setup
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-        // Default nothing selected on home (or you can set a home item if desired)
+        bottomNav.selectedItemId = R.id.nav_home
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_aptitude -> {
-                    startActivity(Intent(this, AptitudeActivity::class.java))
+                R.id.nav_home -> {
+                    // Already on home
                     true
                 }
-                R.id.nav_technical -> {
+                R.id.nav_mock_interview -> {
+                    startActivity(Intent(this, MockInterviewActivity::class.java))
+                    true
+                }
+                R.id.nav_practice -> {
+                    startActivity(Intent(this, GeneralQuestionsActivity::class.java))
+                    true
+                }
+                R.id.nav_interview_xp -> {
                     startActivity(Intent(this, TechnicalActivity::class.java))
                     true
                 }
-                R.id.nav_hr -> {
+                R.id.nav_faq -> {
                     startActivity(Intent(this, HrActivity::class.java))
                     true
                 }
