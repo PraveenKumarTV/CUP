@@ -2,6 +2,7 @@ package com.example.cup2
 
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Window
 import android.widget.Button
@@ -9,6 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.View
+import android.widget.ImageButton
+import androidx.appcompat.widget.PopupMenu
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -36,6 +39,12 @@ class MainActivity : AppCompatActivity() {
             ExistingPeriodicWorkPolicy.KEEP,workRequest)
 
         showWelcomeDialog()
+
+        // Menu button setup
+        val btnMenu = findViewById<ImageButton>(R.id.btnMenu)
+        btnMenu.setOnClickListener { view ->
+            showPopupMenu(view)
+        }
 
         // Module card click listeners
         findViewById<View>(R.id.cardAptitude).setOnClickListener {
@@ -68,6 +77,31 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popup = PopupMenu(this, view)
+        popup.menuInflater.inflate(R.menu.main_menu, popup.menu)
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_about -> {
+                    startActivity(Intent(this, AboutActivity::class.java))
+                    true
+                }
+                R.id.action_feedback -> {
+                    val url = "https://docs.google.com/forms/d/e/1FAIpQLSfD_u_h8-58_86_H2_28_88_88_88_88_88_88_88/viewform" // Replace with your actual GForm link
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                    true
+                }
+                R.id.action_help -> {
+                    startActivity(Intent(this, HelpActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
     }
 
     private fun showWelcomeDialog() {

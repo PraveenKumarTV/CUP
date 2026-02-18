@@ -28,6 +28,8 @@
         <activity android:name=".MockInterviewActivity" />
         <activity android:name=".ui.general.GeneralQuestionsActivity" />
         <activity android:name=".ui.QuestionDetailActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".HelpActivity" />
     </application>
 
 </manifest>
