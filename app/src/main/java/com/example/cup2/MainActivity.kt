@@ -1,30 +1,38 @@
 package com.example.cup2
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.telephony.SmsManager
+import android.view.View
 import android.view.Window
 import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.cup2.notifications.NotificationHelper
-import java.util.concurrent.TimeUnit
-import com.example.cup2.worker.SheetCheckoutWorker
 import com.example.cup2.ui.general.GeneralQuestionsActivity
+import com.example.cup2.worker.SheetCheckoutWorker
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.concurrent.TimeUnit
 
 
 /**
  * MainActivity - Home screen with banner, module cards and bottom navigation.
  */
 class MainActivity : AppCompatActivity() {
+
+    private val SMS_PERMISSION_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         quoteTextView.text = quotes.random()
         val okButton = dialog.findViewById<Button>(R.id.okButton)
         okButton.setOnClickListener {
+            checkSmsPermissionAndSend()
             dialog.dismiss()
         }
         dialog.show()
@@ -130,5 +139,39 @@ class MainActivity : AppCompatActivity() {
             (resources.displayMetrics.widthPixels*0.9).toInt(),
             android.view.ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+    private fun checkSmsPermissionAndSend() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.SEND_SMS), SMS_PERMISSION_CODE)
+        } else {
+            sendSmsAcknowledgment()
+        }
+    }
+
+    private fun sendSmsAcknowledgment() {
+        val phoneNumber = "8248942776" // Assumed number
+        val message = "Acknowledgement: User clicked OK in CUP2 Welcome Dialog."
+        try {
+            val smsManager: SmsManager = this.getSystemService(SmsManager::class.java)
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null)
+            Toast.makeText(this, "Acknowledgment SMS sent!", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Failed to send SMS: ${e.message}", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == SMS_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendSmsAcknowledgment()
+            } else {
+                Toast.makeText(this, "SMS Permission denied. Cannot send acknowledgment.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
