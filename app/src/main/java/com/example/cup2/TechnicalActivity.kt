@@ -3,6 +3,7 @@ package com.example.cup2
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cup2.ui.HistoryActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.cup2.ui.general.GeneralQuestionsActivity
 
@@ -38,11 +39,15 @@ class TechnicalActivity : AppCompatActivity() {
                 R.id.nav_interview_xp -> {
                     true // Already here
                 }
-
-                R.id.nav_faq -> {
-                    startActivity(Intent(this, HrActivity::class.java))
+                R.id.nav_history->{
+                    startActivity(Intent(this, HistoryActivity::class.java))
                     true
                 }
+
+//                R.id.nav_faq -> {
+//                    startActivity(Intent(this, HrActivity::class.java))
+//                    true
+//                }
 
                 else -> false
             }

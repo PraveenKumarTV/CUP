@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/nav_home"
         android:title="Home"
         android:icon="@mipmap/ic_launcher" />
+
     <item
         android:id="@+id/nav_mock_interview"
-        android:title="Mock Interview"
+        android:title="Mock"
         android:icon="@mipmap/ic_launcher" />
+
     <item
         android:id="@+id/nav_practice"
         android:title="Practice"
         android:icon="@mipmap/ic_launcher" />
+
+    <item
+        android:id="@+id/nav_history"
+        android:title="History"
+        android:icon="@mipmap/ic_launcher" />
+
     <item
         android:id="@+id/nav_interview_xp"
-        android:title="Interview Xp"
+        android:title="XP"
         android:icon="@mipmap/ic_launcher" />
-    <item
-        android:id="@+id/nav_faq"
-        android:title="FAQ"
-        android:icon="@mipmap/ic_launcher" />
+
 </menu>

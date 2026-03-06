@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.View
+import com.example.cup2.ui.HistoryActivity
 
 /**
  * AptitudeActivity - module page template.
@@ -27,12 +28,16 @@ class AptitudeActivity : AppCompatActivity() {
                     // already here
                     true
                 }
-                R.id.nav_faq -> {
-                    startActivity(Intent(this, TechnicalActivity::class.java))
-                    true
-                }
+//                R.id.nav_faq -> {
+//                    startActivity(Intent(this, TechnicalActivity::class.java))
+//                    true
+//                }
                 R.id.nav_interview_xp -> {
                     startActivity(Intent(this, HrActivity::class.java))
+                    true
+                }
+                R.id.nav_history->{
+                    startActivity(Intent(this, HistoryActivity::class.java))
                     true
                 }
                 else -> false

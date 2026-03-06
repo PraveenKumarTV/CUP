@@ -30,6 +30,7 @@
         <activity android:name=".ui.general.GeneralQuestionsActivity" />
         <activity android:name=".ui.QuestionDetailActivity" />
         <activity android:name=".ui.UploadResumeActivity" />
+        <activity android:name=".ui.HistoryActivity" />
     </application>
 
 </manifest>

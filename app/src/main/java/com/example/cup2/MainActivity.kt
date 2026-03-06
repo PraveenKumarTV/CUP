@@ -25,6 +25,7 @@ import com.example.cup2.ui.general.GeneralQuestionsActivity
 import com.example.cup2.worker.SheetCheckoutWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.concurrent.TimeUnit
+import com.example.cup2.ui.HistoryActivity
 
 
 /**
@@ -87,10 +88,14 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, TechnicalActivity::class.java))
                     true
                 }
-                R.id.nav_faq -> {
-                    startActivity(Intent(this, HrActivity::class.java))
+                R.id.nav_history->{
+                    startActivity(Intent(this, HistoryActivity::class.java))
                     true
                 }
+//                R.id.nav_faq -> {
+//                    startActivity(Intent(this, HrActivity::class.java))
+//                    true
+//                }
                 else -> false
             }
         }
@@ -101,6 +106,10 @@ class MainActivity : AppCompatActivity() {
         popup.menuInflater.inflate(R.menu.main_menu, popup.menu)
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.action_history -> {
+                    startActivity(Intent(this, HistoryActivity::class.java))
+                    true
+                }
                 R.id.action_about -> {
                     startActivity(Intent(this, AboutActivity::class.java))
                     true

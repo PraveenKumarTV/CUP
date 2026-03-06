@@ -20,6 +20,7 @@ import com.example.cup2.MainActivity
 import com.example.cup2.MockInterviewActivity
 import com.example.cup2.TechnicalActivity
 import com.example.cup2.HrActivity
+import com.example.cup2.ui.HistoryActivity
 
 class GeneralQuestionsActivity : AppCompatActivity() {
 
@@ -93,11 +94,15 @@ class GeneralQuestionsActivity : AppCompatActivity() {
                     startActivity(Intent(this, TechnicalActivity::class.java))
                     true
                 }
-
-                R.id.nav_faq -> {
-                    startActivity(Intent(this, HrActivity::class.java))
+                R.id.nav_history->{
+                    startActivity(Intent(this, HistoryActivity::class.java))
                     true
                 }
+
+//                R.id.nav_faq -> {
+//                    startActivity(Intent(this, HrActivity::class.java))
+//                    true
+//                }
 
                 else -> false
             }
