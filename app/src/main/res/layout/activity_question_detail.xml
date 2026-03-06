@@ -53,6 +53,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/answerEditText" />
 
+    <Button
+        android:id="@+id/saveResponseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Save Response"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/submitButton"
+        app:layout_constraintEnd_toStartOf="@id/submitButton"
+        app:layout_constraintTop_toTopOf="@id/submitButton" />
+
     <TextView
         android:id="@+id/aiResponseTitle"
         android:layout_width="wrap_content"
