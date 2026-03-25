@@ -2,6 +2,7 @@ package com.example.cup2
 
 import android.Manifest
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,7 @@ import com.example.cup2.notifications.NotificationHelper
 import com.example.cup2.ui.general.GeneralQuestionsActivity
 import com.example.cup2.worker.SheetCheckoutWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import java.util.concurrent.TimeUnit
 
 
@@ -33,6 +36,15 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
 
     private val SMS_PERMISSION_CODE = 101
+
+    data class VideoSuggestion(val title: String, val url: String, val topic: String)
+
+    private val videoSuggestions = listOf(
+        VideoSuggestion("DSA: Linked List Basics", "https://youtu.be/Nq7ok-OyEpg?si=IARBIByoxMWtS3gz", "DSA"),
+        VideoSuggestion("OOP: Polymorphism Explained", "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", "OOP"),
+        VideoSuggestion("DBMS: SQL Joins Tutorial", "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4", "DBMS"),
+        VideoSuggestion("DSA: Graph Algorithms", "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", "DSA")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             ExistingPeriodicWorkPolicy.KEEP,workRequest)
 
         showWelcomeDialog()
+        setupVideoSuggestions()
 
         // Menu button setup
         val btnMenu = findViewById<ImageButton>(R.id.btnMenu)
@@ -96,6 +109,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupVideoSuggestions() {
+        val container = findViewById<LinearLayout>(R.id.videoContainer)
+        
+        for (video in videoSuggestions) {
+            val card = MaterialCardView(this).apply {
+                val params = LinearLayout.LayoutParams(500, 300)
+                params.setMargins(0, 0, 16, 0)
+                layoutParams = params
+                
+                radius = 12f
+                cardElevation = 4f
+                setCardBackgroundColor(ContextCompat.getColor(context, R.color.secondary_background))
+                
+                val textView = TextView(context).apply {
+                    text = "${video.topic}\n${video.title}"
+                    gravity = android.view.Gravity.CENTER
+                    setPadding(16, 16, 16, 16)
+                    setTextColor(ContextCompat.getColor(context, android.R.color.black))
+                    setTypeface(null, android.graphics.Typeface.BOLD)
+                }
+                addView(textView)
+
+                setOnClickListener {
+                    val intent = Intent(this@MainActivity, VideoPlayerActivity::class.java).apply {
+                        putExtra("VIDEO_URL", video.url)
+                        putExtra("VIDEO_TITLE", video.title)
+                    }
+                    startActivity(intent)
+                }
+            }
+            container.addView(card)
+        }
+    }
+
     private fun showPopupMenu(view: View) {
         val popup = PopupMenu(this, view)
         popup.menuInflater.inflate(R.menu.main_menu, popup.menu)
@@ -115,10 +162,28 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, HelpActivity::class.java))
                     true
                 }
+                R.id.action_logout -> {
+                    logoutUser()
+                    true
+                }
                 else -> false
             }
         }
         popup.show()
+    }
+
+    private fun logoutUser() {
+        val sharedPreferences = getSharedPreferences("CUP2_Prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", false)
+        editor.apply()
+
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+        
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun showWelcomeDialog() {
@@ -152,7 +217,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendSmsAcknowledgment() {
-        val phoneNumber = "8248942776" // Assumed number
+        val phoneNumber = "1234567890" // Assumed number
         val message = "Acknowledgement: User clicked OK in CUP2 Welcome Dialog."
         try {
             val smsManager: SmsManager = this.getSystemService(SmsManager::class.java)

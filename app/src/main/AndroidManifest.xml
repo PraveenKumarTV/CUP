@@ -15,14 +15,16 @@
         android:theme="@style/Theme.CUP2"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
         <activity android:name=".AptitudeActivity" />
         <activity android:name=".TechnicalActivity" />
         <activity android:name=".HrActivity" />
@@ -30,6 +32,7 @@
         <activity android:name=".ui.general.GeneralQuestionsActivity" />
         <activity android:name=".ui.QuestionDetailActivity" />
         <activity android:name=".ui.UploadResumeActivity" />
+        <activity android:name=".VideoPlayerActivity" />
     </application>
 
 </manifest>
