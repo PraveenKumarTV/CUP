@@ -8,23 +8,12 @@
     android:layout_height="match_parent"
     android:background="@color/light_background">
 
-    <!-- Header / AppBar -->
-
-    <!-- Recent updates banner (rounded card) -->
-
-    <!-- First row: aptitude and technical (horizontal chain, equal size squares) -->
-
-    <!-- Second row: HR centered below -->
-
-    <!-- Bottom navigation -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="81dp"
         android:background="@color/primary_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -52,7 +41,6 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnMenu"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@id/ivLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,19 +64,18 @@
         android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/secondary_background"
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/ivBanner"
-            android:layout_width="345dp"
-            android:layout_height="164dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:contentDescription="Recent updates banner"
             android:padding="12dp"
             android:scaleType="centerCrop"
@@ -97,20 +84,17 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardAptitude"
-        android:layout_width="144dp"
-        android:layout_height="128dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@color/secondary_background"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintEnd_toStartOf="@+id/cardTechnical"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.548"
-        app:layout_constraintWidth_percent="0.48">
+        app:layout_constraintTop_toBottomOf="@id/bannerCard">
 
         <TextView
             android:id="@+id/tvAptitude"
@@ -124,18 +108,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardTechnical"
-        android:layout_width="139dp"
-        android:layout_height="129dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/secondary_background"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551"
-        app:layout_constraintWidth_percent="0.48">
+        app:layout_constraintStart_toEndOf="@+id/cardAptitude"
+        app:layout_constraintTop_toBottomOf="@id/bannerCard">
 
         <TextView
             android:id="@+id/tvTechnical"
@@ -149,18 +131,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardHr"
-        android:layout_width="143dp"
-        android:layout_height="134dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/secondary_background"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.856"
-        app:layout_constraintWidth_percent="0.5">
+        app:layout_constraintTop_toBottomOf="@id/cardAptitude">
 
         <TextView
             android:id="@+id/tvHr"
@@ -171,6 +151,16 @@
             android:textSize="18sp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

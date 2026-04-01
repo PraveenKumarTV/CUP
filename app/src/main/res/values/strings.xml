@@ -3,4 +3,5 @@
     <string name="aptiname">Mock Interview</string>
     <string name="technical">Interview Experience</string>
     <string name="hr">Frequently asked questions</string>
+    <string name="please_enter_answer">Please enter your answer</string>
 </resources>
